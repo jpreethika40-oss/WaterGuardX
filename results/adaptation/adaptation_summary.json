@@ -1,0 +1,91 @@
+{
+  "shift_detected": true,
+  "shift_score": 0.421815,
+  "shift_threshold": 0.009148,
+  "adaptation_strategy": "periodic_fine_tuning_with_replay",
+  "replay_ratio": 0.2,
+  "epochs": 5,
+  "learning_rate": 0.0001,
+  "adaptation_time_s": 68.48,
+  "candidate_threshold": 0.01,
+  "safety_check": {
+    "orig_f1_shift_val": 0.6375,
+    "cand_f1_shift_val": 0.9716,
+    "delta_shift_val": 0.334,
+    "rule1_pass": true,
+    "orig_f1_orig_val": 0.9917,
+    "cand_f1_orig_val": 0.9934,
+    "delta_orig_val": 0.0017,
+    "max_orig_degradation_allowed": 0.05,
+    "rule2_pass": true,
+    "accepted": true,
+    "phase2_val_delta": -0.1
+  },
+  "comparison_records": [
+    {
+      "Model State": "Original (SSL Transformer)",
+      "Test Condition": "Normal (Dec Eval)",
+      "Precision": 0.9289,
+      "Recall": 0.9869,
+      "F1": 0.957,
+      "ROC-AUC": 0.9961,
+      "PR-AUC": 0.9914,
+      "FPR": 0.0176,
+      "FNR": 0.0131
+    },
+    {
+      "Model State": "Original (SSL Transformer)",
+      "Test Condition": "Shifted (Dec Eval)",
+      "Precision": 0.2036,
+      "Recall": 1.0,
+      "F1": 0.3383,
+      "ROC-AUC": 0.9592,
+      "PR-AUC": 0.8795,
+      "FPR": 0.9133,
+      "FNR": 0.0
+    },
+    {
+      "Model State": "Adapted (SSL Transformer)",
+      "Test Condition": "Normal (Dec Eval)",
+      "Precision": 0.9695,
+      "Recall": 0.9833,
+      "F1": 0.9764,
+      "ROC-AUC": 0.9962,
+      "PR-AUC": 0.99,
+      "FPR": 0.0072,
+      "FNR": 0.0167
+    },
+    {
+      "Model State": "Adapted (SSL Transformer)",
+      "Test Condition": "Shifted (Dec Eval)",
+      "Precision": 0.7678,
+      "Recall": 0.9833,
+      "F1": 0.8623,
+      "ROC-AUC": 0.993,
+      "PR-AUC": 0.9876,
+      "FPR": 0.0694,
+      "FNR": 0.0167
+    }
+  ],
+  "deltas_shifted": {
+    "delta_f1": 0.524,
+    "delta_precision": 0.5642,
+    "delta_recall": -0.0167,
+    "delta_fpr": -0.8439
+  },
+  "deltas_normal_retention": {
+    "delta_f1_normal": 0.0193
+  },
+  "error_analysis": {
+    "fp_before": 12863,
+    "fp_after": 935,
+    "fn_before": 0,
+    "fn_after": 70
+  },
+  "cost": {
+    "adaptation_time_s": 68.48,
+    "inference_ms_before": 2.1417,
+    "inference_ms_after": 2.0611,
+    "model_size_kb": 95.7
+  }
+}

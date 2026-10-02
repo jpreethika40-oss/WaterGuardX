@@ -1,0 +1,3 @@
+condition,state,FP,FN,FPR,FNR
+Shifted Full Test,Before Adaptation,12863,0,0.9208246832271458,0.0
+Shifted Full Test,After Adaptation,935,70,0.06693392511990837,0.019707207207207207

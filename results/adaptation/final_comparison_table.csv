@@ -1,0 +1,5 @@
+Model State,Test Condition,Precision,Recall,F1,ROC-AUC,PR-AUC,FPR,FNR
+Original (SSL Transformer),Normal (Dec Eval),0.9289,0.9869,0.957,0.9961,0.9914,0.0176,0.0131
+Original (SSL Transformer),Shifted (Dec Eval),0.2036,1.0,0.3383,0.9592,0.8795,0.9133,0.0
+Adapted (SSL Transformer),Normal (Dec Eval),0.9695,0.9833,0.9764,0.9962,0.99,0.0072,0.0167
+Adapted (SSL Transformer),Shifted (Dec Eval),0.7678,0.9833,0.8623,0.993,0.9876,0.0694,0.0167

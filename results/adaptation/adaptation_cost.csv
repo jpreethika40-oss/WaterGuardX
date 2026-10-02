@@ -1,0 +1,2 @@
+adaptation_training_time_s,adaptation_epochs,inference_ms_before,inference_ms_after,model_size_kb_before,model_size_kb_after,model_parameters
+68.48,5,2.1417,2.0611,95.23,95.7,19313
