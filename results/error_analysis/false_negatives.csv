@@ -1,0 +1,11 @@
+Error ID,Sequence ID,Timestamp,True Label,Prediction,Probability,Observed Pattern
+FN_4561,4561,2018-12-17 00:00:00,1,0,0.00044999999227002263,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4571,4571,2018-12-17 00:50:00,1,0,0.0004600000102072954,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4570,4570,2018-12-17 00:45:00,1,0,0.00046999999904073775,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4562,4562,2018-12-17 00:05:00,1,0,0.0004900000058114529,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4564,4564,2018-12-17 00:15:00,1,0,0.0004900000058114529,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4565,4565,2018-12-17 00:20:00,1,0,0.0004900000058114529,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4563,4563,2018-12-17 00:10:00,1,0,0.0005000000237487257,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4566,4566,2018-12-17 00:25:00,1,0,0.0005000000237487257,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4569,4569,2018-12-17 00:40:00,1,0,0.0005099999834783375,Transient anomaly profile with localized attenuation on pressure channels.
+FN_4572,4572,2018-12-17 00:55:00,1,0,0.0005200000014156103,Transient anomaly profile with localized attenuation on pressure channels.

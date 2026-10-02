@@ -1,0 +1,11 @@
+Error ID,Sequence ID,Timestamp,True Label,Prediction,Probability,Observed Pattern
+FP_5713,5713,2018-12-21 00:00:00,0,1,0.9996299743652344,Sudden hydraulic switching spike on n215 (step grad=8.29σ).
+FP_5714,5714,2018-12-21 00:05:00,0,1,0.9995700120925903,Sudden hydraulic switching spike on n163 (step grad=8.29σ).
+FP_5715,5715,2018-12-21 00:10:00,0,1,0.999459981918335,Sudden hydraulic switching spike on n163 (step grad=8.29σ).
+FP_5716,5716,2018-12-21 00:15:00,0,1,0.999239981174469,Sudden hydraulic switching spike on n163 (step grad=8.29σ).
+FP_5717,5717,2018-12-21 00:20:00,0,1,0.9987000226974487,Sudden hydraulic switching spike on n458 (step grad=8.29σ).
+FP_5718,5718,2018-12-21 00:25:00,0,1,0.9971100091934204,Sudden hydraulic switching spike on n215 (step grad=8.29σ).
+FP_5719,5719,2018-12-21 00:30:00,0,1,0.993619978427887,Sudden hydraulic switching spike on n1 (step grad=8.29σ).
+FP_5720,5720,2018-12-21 00:35:00,0,1,0.9871600270271301,Sudden hydraulic switching spike on n1 (step grad=8.29σ).
+FP_5721,5721,2018-12-21 00:40:00,0,1,0.975059986114502,Sudden hydraulic switching spike on n1 (step grad=8.29σ).
+FP_529,529,2018-12-03 00:00:00,0,1,0.9687299728393555,Sudden hydraulic switching spike on n215 (step grad=4.36σ).
