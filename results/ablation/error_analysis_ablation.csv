@@ -1,0 +1,6 @@
+Config,Model,Shifted FP,Shifted FN,Shifted FPR,Shifted FNR
+A (Baseline),Baseline Transformer,7200,130,100.00%,7.73%
+B (SSL Only),Transformer + SSL,6576,0,91.33%,0.00%
+C (Adaptation Only),Transformer + Adaptation,333,472,4.62%,28.08%
+D (SSL + Adapt),SSL Transformer + Adaptation,500,28,6.94%,1.67%
+E (Full System),Full Proposed System,500,28,6.94%,1.67%

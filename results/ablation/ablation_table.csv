@@ -1,0 +1,6 @@
+Config,Name,SSL,Shift Detection,Adaptation,Normal F1,Shifted F1,Adapted F1,Shifted ROC-AUC,Shifted PR-AUC,Shifted FPR
+A,Baseline Transformer,No,No,No,0.9396,0.2974,N/A,0.3192,0.2153,100.00%
+B,Transformer + SSL,Yes,No,No,0.957,0.3383,N/A,0.9592,0.8795,91.33%
+C,Transformer + Adaptation,No,Yes,Yes,0.9359,0.2974,0.7502,0.8962,0.8119,4.62%
+D,SSL Transformer + Adaptation,Yes,Yes,Yes,0.9764,0.3383,0.8623,0.993,0.9876,6.94%
+E,Full System (All Components),Yes,Yes,Yes,0.957,0.3383,0.8623,0.993,0.9876,6.94%

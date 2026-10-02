@@ -1,0 +1,6 @@
+Config,Configuration,Training Time (s),Adaptation Time (s),Total Time (s),Inference Latency (ms),Model Size (KB),Parameters
+A,Baseline Transformer,75.4,0.0,75.4,2.1815,87.77,17729
+B,Transformer + SSL,253.99,0.0,253.99,2.2411,95.23,19313
+C,Transformer + Adaptation,75.4,70.61,146.01,2.0901,88.19,17729
+D,SSL Transformer + Adaptation,253.99,68.48,322.47,1.9841,95.7,19313
+E,Full System (All Components),253.99,68.48,322.47,1.9841,95.7,19313

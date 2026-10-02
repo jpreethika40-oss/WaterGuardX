@@ -1,0 +1,237 @@
+{
+  "configurations": [
+    {
+      "Config": "A",
+      "Name": "Baseline Transformer",
+      "SSL": "No",
+      "Shift Detection": "No",
+      "Adaptation": "No",
+      "Normal F1": 0.9396,
+      "Shifted F1": 0.2974,
+      "Adapted F1": "N/A",
+      "Shifted ROC-AUC": 0.3192,
+      "Shifted PR-AUC": 0.2153,
+      "Shifted FPR": "100.00%"
+    },
+    {
+      "Config": "B",
+      "Name": "Transformer + SSL",
+      "SSL": "Yes",
+      "Shift Detection": "No",
+      "Adaptation": "No",
+      "Normal F1": 0.957,
+      "Shifted F1": 0.3383,
+      "Adapted F1": "N/A",
+      "Shifted ROC-AUC": 0.9592,
+      "Shifted PR-AUC": 0.8795,
+      "Shifted FPR": "91.33%"
+    },
+    {
+      "Config": "C",
+      "Name": "Transformer + Adaptation",
+      "SSL": "No",
+      "Shift Detection": "Yes",
+      "Adaptation": "Yes",
+      "Normal F1": 0.9359,
+      "Shifted F1": 0.2974,
+      "Adapted F1": 0.7502,
+      "Shifted ROC-AUC": 0.8962,
+      "Shifted PR-AUC": 0.8119,
+      "Shifted FPR": "4.62%"
+    },
+    {
+      "Config": "D",
+      "Name": "SSL Transformer + Adaptation",
+      "SSL": "Yes",
+      "Shift Detection": "Yes",
+      "Adaptation": "Yes",
+      "Normal F1": 0.9764,
+      "Shifted F1": 0.3383,
+      "Adapted F1": 0.8623,
+      "Shifted ROC-AUC": 0.993,
+      "Shifted PR-AUC": 0.9876,
+      "Shifted FPR": "6.94%"
+    },
+    {
+      "Config": "E",
+      "Name": "Full System (All Components)",
+      "SSL": "Yes",
+      "Shift Detection": "Yes",
+      "Adaptation": "Yes",
+      "Normal F1": 0.957,
+      "Shifted F1": 0.3383,
+      "Adapted F1": 0.8623,
+      "Shifted ROC-AUC": 0.993,
+      "Shifted PR-AUC": 0.9876,
+      "Shifted FPR": "6.94%"
+    }
+  ],
+  "component_contributions": [
+    {
+      "Component / Effect": "SSL Contribution on Normal Data",
+      "Comparison": "Config B vs. Config A (Normal)",
+      "Metric": "F1-Score",
+      "Base Value": 0.9396,
+      "With Component": 0.957,
+      "Delta": 0.0174
+    },
+    {
+      "Component / Effect": "SSL Contribution on Shifted Data (Pre-Adaptation)",
+      "Comparison": "Config B vs. Config A (Shifted)",
+      "Metric": "F1-Score",
+      "Base Value": 0.2974,
+      "With Component": 0.3383,
+      "Delta": 0.0409
+    },
+    {
+      "Component / Effect": "SSL Representation Advantage (Shifted ROC-AUC)",
+      "Comparison": "Config B vs. Config A (Shifted)",
+      "Metric": "ROC-AUC",
+      "Base Value": 0.3192,
+      "With Component": 0.9592,
+      "Delta": 0.64
+    },
+    {
+      "Component / Effect": "Adaptation Contribution without SSL",
+      "Comparison": "Config C vs. Config A (Shifted Eval)",
+      "Metric": "F1-Score",
+      "Base Value": 0.2974,
+      "With Component": 0.7502,
+      "Delta": 0.4529
+    },
+    {
+      "Component / Effect": "Adaptation Contribution with SSL",
+      "Comparison": "Config D vs. Config B (Shifted Eval)",
+      "Metric": "F1-Score",
+      "Base Value": 0.3383,
+      "With Component": 0.8623,
+      "Delta": 0.524
+    },
+    {
+      "Component / Effect": "SSL Advantage under Adapted Regime",
+      "Comparison": "Config D vs. Config C (Adapted Shifted)",
+      "Metric": "F1-Score",
+      "Base Value": 0.7502,
+      "With Component": 0.8623,
+      "Delta": 0.1121
+    },
+    {
+      "Component / Effect": "Full System Synergistic Gain",
+      "Comparison": "Config E (Full) vs. Config A (Baseline)",
+      "Metric": "Shifted F1-Score",
+      "Base Value": 0.2974,
+      "With Component": 0.8623,
+      "Delta": 0.5649
+    },
+    {
+      "Component / Effect": "Full System Normal Retention",
+      "Comparison": "Config E (Full) vs. Config A (Baseline)",
+      "Metric": "Normal F1-Score",
+      "Base Value": 0.9396,
+      "With Component": 0.957,
+      "Delta": 0.0174
+    }
+  ],
+  "error_analysis": [
+    {
+      "Config": "A (Baseline)",
+      "Model": "Baseline Transformer",
+      "Shifted FP": 7200,
+      "Shifted FN": 130,
+      "Shifted FPR": "100.00%",
+      "Shifted FNR": "7.73%"
+    },
+    {
+      "Config": "B (SSL Only)",
+      "Model": "Transformer + SSL",
+      "Shifted FP": 6576,
+      "Shifted FN": 0,
+      "Shifted FPR": "91.33%",
+      "Shifted FNR": "0.00%"
+    },
+    {
+      "Config": "C (Adaptation Only)",
+      "Model": "Transformer + Adaptation",
+      "Shifted FP": 333,
+      "Shifted FN": 472,
+      "Shifted FPR": "4.62%",
+      "Shifted FNR": "28.08%"
+    },
+    {
+      "Config": "D (SSL + Adapt)",
+      "Model": "SSL Transformer + Adaptation",
+      "Shifted FP": 500,
+      "Shifted FN": 28,
+      "Shifted FPR": "6.94%",
+      "Shifted FNR": "1.67%"
+    },
+    {
+      "Config": "E (Full System)",
+      "Model": "Full Proposed System",
+      "Shifted FP": 500,
+      "Shifted FN": 28,
+      "Shifted FPR": "6.94%",
+      "Shifted FNR": "1.67%"
+    }
+  ],
+  "computational_cost": [
+    {
+      "Config": "A",
+      "Configuration": "Baseline Transformer",
+      "Training Time (s)": 75.4,
+      "Adaptation Time (s)": 0.0,
+      "Total Time (s)": 75.4,
+      "Inference Latency (ms)": 2.1815,
+      "Model Size (KB)": 87.77,
+      "Parameters": 17729
+    },
+    {
+      "Config": "B",
+      "Configuration": "Transformer + SSL",
+      "Training Time (s)": 253.99,
+      "Adaptation Time (s)": 0.0,
+      "Total Time (s)": 253.99,
+      "Inference Latency (ms)": 2.2411,
+      "Model Size (KB)": 95.23,
+      "Parameters": 19313
+    },
+    {
+      "Config": "C",
+      "Configuration": "Transformer + Adaptation",
+      "Training Time (s)": 75.4,
+      "Adaptation Time (s)": 70.61,
+      "Total Time (s)": 146.01,
+      "Inference Latency (ms)": 2.0901,
+      "Model Size (KB)": 88.19,
+      "Parameters": 17729
+    },
+    {
+      "Config": "D",
+      "Configuration": "SSL Transformer + Adaptation",
+      "Training Time (s)": 253.99,
+      "Adaptation Time (s)": 68.48,
+      "Total Time (s)": 322.47,
+      "Inference Latency (ms)": 1.9841,
+      "Model Size (KB)": 95.7,
+      "Parameters": 19313
+    },
+    {
+      "Config": "E",
+      "Configuration": "Full System (All Components)",
+      "Training Time (s)": 253.99,
+      "Adaptation Time (s)": 68.48,
+      "Total Time (s)": 322.47,
+      "Inference Latency (ms)": 1.9841,
+      "Model Size (KB)": 95.7,
+      "Parameters": 19313
+    }
+  ],
+  "findings": {
+    "ssl_contribution_normal_f1": 0.0174,
+    "ssl_advantage_shifted_roc_auc": 0.64,
+    "adaptation_contribution_no_ssl": 0.4529,
+    "adaptation_contribution_with_ssl": 0.524,
+    "ssl_advantage_in_adapted_regime": 0.1121,
+    "full_system_gain_f1": 0.5649
+  }
+}

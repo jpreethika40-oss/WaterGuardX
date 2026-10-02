@@ -1,0 +1,9 @@
+Component / Effect,Comparison,Metric,Base Value,With Component,Delta
+SSL Contribution on Normal Data,Config B vs. Config A (Normal),F1-Score,0.9396,0.957,0.0174
+SSL Contribution on Shifted Data (Pre-Adaptation),Config B vs. Config A (Shifted),F1-Score,0.2974,0.3383,0.0409
+SSL Representation Advantage (Shifted ROC-AUC),Config B vs. Config A (Shifted),ROC-AUC,0.3192,0.9592,0.64
+Adaptation Contribution without SSL,Config C vs. Config A (Shifted Eval),F1-Score,0.2974,0.7502,0.4529
+Adaptation Contribution with SSL,Config D vs. Config B (Shifted Eval),F1-Score,0.3383,0.8623,0.524
+SSL Advantage under Adapted Regime,Config D vs. Config C (Adapted Shifted),F1-Score,0.7502,0.8623,0.1121
+Full System Synergistic Gain,Config E (Full) vs. Config A (Baseline),Shifted F1-Score,0.2974,0.8623,0.5649
+Full System Normal Retention,Config E (Full) vs. Config A (Baseline),Normal F1-Score,0.9396,0.957,0.0174
