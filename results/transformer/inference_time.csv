@@ -1,0 +1,2 @@
+model,total_s,per_sample_ms,n_samples,device
+Transformer,1.02198,0.699507,1461,cpu

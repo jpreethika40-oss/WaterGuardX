@@ -1,0 +1,16 @@
+{
+  "d_model": 32,
+  "nhead": 2,
+  "num_layers": 2,
+  "dim_feedforward": 64,
+  "dropout": 0.1,
+  "lr": 0.001,
+  "batch_size": 256,
+  "n_features": 16,
+  "sequence_length": 48,
+  "stride": 12,
+  "threshold": 0.0198,
+  "best_epoch": 5,
+  "n_params": 17729,
+  "device": "cpu"
+}
