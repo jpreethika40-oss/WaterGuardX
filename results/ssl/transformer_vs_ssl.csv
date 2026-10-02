@@ -1,0 +1,3 @@
+model,ssl_used,accuracy,precision,recall,f1,roc_auc,pr_auc,fpr,fnr,threshold,n_params
+Transformer (Phase 5),False,0.9678,0.9055,0.9392,0.9221,0.9934,0.9769,0.0249,0.0608,0.0198,17729
+SSL Transformer (Phase 6),True,0.9713,0.8944,0.973,0.932,0.9919,0.9851,0.0292,0.027,0.0297,19313

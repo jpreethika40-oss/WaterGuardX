@@ -1,0 +1,23 @@
+{
+  "mask_ratio": 0.15,
+  "d_model": 32,
+  "nhead": 2,
+  "num_layers": 2,
+  "dim_feedforward": 64,
+  "dropout": 0.1,
+  "lr": 0.001,
+  "weight_decay": 0.0001,
+  "batch_size": 256,
+  "pretrain_epochs": 10,
+  "finetune_epochs": 5,
+  "patience_pretrain": 5,
+  "patience_finetune": 3,
+  "seed": 42,
+  "stride": 12,
+  "n_features": 16,
+  "sequence_length": 48,
+  "best_pretrain_epoch": 10,
+  "best_val_recon_loss": 0.11925694,
+  "total_pretrain_time_s": 169.88,
+  "device": "cpu"
+}

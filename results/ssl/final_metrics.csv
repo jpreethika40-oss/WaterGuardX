@@ -1,0 +1,2 @@
+model,accuracy,precision,recall,f1,fpr,fnr,roc_auc,pr_auc,threshold,best_pretrain_epoch,best_finetune_epoch,n_params
+SSL_Transformer,0.9713,0.8944,0.973,0.932,0.0292,0.027,0.9919,0.9851,0.0297,10,5,19313
