@@ -1,0 +1,80 @@
+{
+  "dataset": "Synthetic Water Sensor Dataset (BattLeDIM-derived)",
+  "source": "Generated from BattLeDIM 2018 SCADA sensor statistics (Zenodo ID: 4017659)",
+  "generation_method": "Statistical simulation from real sensor means/stds with realistic temporal patterns and injected anomaly events",
+  "total_rows": 105120,
+  "total_features": 16,
+  "sensor_cols": [
+    "n1",
+    "n54",
+    "n105",
+    "n163",
+    "n215",
+    "n332",
+    "n458",
+    "n549",
+    "p227",
+    "p235",
+    "PUMP_1",
+    "T1",
+    "sin_hour",
+    "cos_hour",
+    "sin_dow",
+    "cos_dow"
+  ],
+  "timestamp_range": {
+    "start": "2018-01-01 00:00:00",
+    "end": "2018-12-31 23:55:00"
+  },
+  "sampling_frequency": "5 minutes",
+  "missing_values": 0,
+  "duplicate_rows": 0,
+  "class_distribution": {
+    "normal": 91056,
+    "anomaly": 14064,
+    "normal_pct": 86.62100456621005,
+    "anomaly_pct": 13.378995433789953
+  },
+  "anomaly_events": 15,
+  "anomaly_types": [
+    "pressure_drop",
+    "flow_spike",
+    "level_anomaly",
+    "combined"
+  ],
+  "splits": {
+    "train": {
+      "rows": 69984,
+      "anomaly_pct": 12.551440329218108,
+      "period": "2018-01-01 00:00:00 to 2018-08-31 23:55:00"
+    },
+    "val": {
+      "rows": 17568,
+      "anomaly_pct": 9.836065573770492,
+      "period": "2018-09-01 00:00:00 to 2018-10-31 23:55:00"
+    },
+    "test": {
+      "rows": 17568,
+      "anomaly_pct": 20.21857923497268,
+      "period": "2018-11-01 00:00:00 to 2018-12-31 23:55:00"
+    }
+  },
+  "preprocessing": {
+    "scaler": "StandardScaler (fit on train only)",
+    "temporal_features": [
+      "sin_hour",
+      "cos_hour",
+      "sin_dow",
+      "cos_dow"
+    ],
+    "split_strategy": "Chronological (no random shuffling)",
+    "leakage_prevention": "Scaler fitted on training data only; splits are non-overlapping time periods"
+  },
+  "data_quality_issues": {
+    "missing_values": "None",
+    "duplicates": "None",
+    "constant_features": "None",
+    "outliers": "Anomaly events are intentional; clipped to 1.5x sensor range",
+    "class_imbalance": "86.6% normal / 13.4% anomaly \u2014 handled via class weighting in training"
+  }
+}
