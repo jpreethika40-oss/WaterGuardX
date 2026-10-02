@@ -1,0 +1,7 @@
+# Baseline Model Comparison (Test Set)
+
+| Model | Accuracy | Precision | Recall | F1 | ROC-AUC | PR-AUC | FPR | FNR | Inf(ms/sample) | Size(KB) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Logistic Regression | 0.9554 | 0.9269 | 0.8463 | 0.8848 | 0.9627 | 0.9179 | 0.0169 | 0.1537 | 0.0003 | 1.3 |
+| Random Forest | 0.9909 | 0.9675 | 0.9885 | 0.9779 | 0.9974 | 0.9870 | 0.0084 | 0.0115 | 0.0094 | 8123.7 |
+| XGBoost | 0.9908 | 0.9624 | 0.9935 | 0.9777 | 0.9980 | 0.9911 | 0.0098 | 0.0065 | 0.0020 | 614.6 |

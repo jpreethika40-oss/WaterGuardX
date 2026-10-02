@@ -1,0 +1,4 @@
+model,size_kb
+logistic_regression,1.31
+random_forest,8123.73
+xgboost,614.64

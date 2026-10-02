@@ -1,0 +1,7 @@
+{
+  "C": 1.0,
+  "max_iter": 1000,
+  "class_weight": "balanced",
+  "solver": "lbfgs",
+  "threshold": 0.6108040201005025
+}

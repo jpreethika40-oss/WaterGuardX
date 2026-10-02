@@ -1,0 +1,9 @@
+{
+  "n_estimators": 300,
+  "max_depth": 20,
+  "min_samples_split": 10,
+  "min_samples_leaf": 5,
+  "max_features": "sqrt",
+  "class_weight": "balanced",
+  "threshold": 0.2710050251256282
+}

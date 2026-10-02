@@ -1,0 +1,4 @@
+model,features,train_samples,val_samples,test_samples,train_anomaly%,val_anomaly%,test_anomaly%,threshold,train_time_s,test_accuracy,test_precision,test_recall,test_f1,test_fpr,test_fnr,test_roc_auc,test_pr_auc
+logistic_regression,64,69984,17568,17568,12.55,9.84,20.22,0.6108,7.576,0.9554,0.9269,0.8463,0.8848,0.0169,0.1537,0.9627,0.9179
+random_forest,64,69984,17568,17568,12.55,9.84,20.22,0.271,66.418,0.9909,0.9675,0.9885,0.9779,0.0084,0.0115,0.9974,0.987
+xgboost,64,69984,17568,17568,12.55,9.84,20.22,0.0297,3.658,0.9908,0.9624,0.9935,0.9777,0.0098,0.0065,0.998,0.9911

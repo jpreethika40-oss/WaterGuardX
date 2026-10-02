@@ -1,0 +1,4 @@
+model,total_s,per_sample_ms,n_samples
+logistic_regression,0.005723,0.000326,17568
+random_forest,0.164667,0.009373,17568
+xgboost,0.035712,0.002033,17568
