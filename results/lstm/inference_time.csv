@@ -1,0 +1,2 @@
+model,total_s,per_sample_ms,n_samples,device,batch
+LSTM,7.576076,0.4324,17521,cpu,full

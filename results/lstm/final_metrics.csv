@@ -1,0 +1,2 @@
+model,accuracy,precision,recall,f1,fpr,fnr,roc_auc,pr_auc,threshold,best_epoch,n_params
+LSTM,0.9754,0.9765,0.9003,0.9369,0.0055,0.0997,0.9922,0.98,0.4187,2,141697

@@ -1,0 +1,12 @@
+{
+  "input_size": 16,
+  "hidden_size": 64,
+  "num_layers": 2,
+  "dropout": 0.3,
+  "bidirectional": true,
+  "sequence_length": 48,
+  "threshold": 0.4187,
+  "best_epoch": 2,
+  "n_params": 141697,
+  "device": "cpu"
+}

@@ -1,0 +1,4 @@
+experiment_id,hidden_size,num_layers,dropout,learning_rate,batch_size,weight_decay,sequence_length,bidirectional,training_epochs,best_epoch,validation_loss,validation_f1
+1,64,2,0.3,0.001,256,0.0001,48,True,8,2,0.707856,0.8757
+2,128,2,0.3,0.0005,256,0.0001,48,True,19,13,1.874081,0.7822
+3,128,2,0.3,0.001,512,0.0001,48,True,13,7,1.797667,0.7404
