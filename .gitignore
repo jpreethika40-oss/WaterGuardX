@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Scratch & logs
+scratch/
+*.log
+
+# Python packages & builds
+*.egg-info/
+dist/
+build/
+
+# Pickles (allow scaler artifact)
+*.pkl
+!data/processed/scaler.pkl
+
+# Processed full dataset CSVs (can be generated via src.preprocessing)
+data/processed/*.csv
+data/processed/**/*.csv
+
+# Raw large external files (>20MB source BattLeDIM dumps)
+data/raw/*.xlsx
+data/raw/2018_*.csv
+data/raw/2019_*.csv
+
+# Ensure essential sample and metadata files are tracked
+!data/sample/*.csv
+!data/raw/water_sensor_data.csv
+!data/raw/anomaly_events.json
+!data/raw/sensor_stats.json
+!data/processed/preprocessing_meta.json
+
+# Model checkpoints (ignore intermediate experiment weights, keep final models)
+models/**/*.pt
+models/**/*.pth
+!models/final_model.pt
+!models/final_model_adapted.pt
+!models/transformer/config.json
