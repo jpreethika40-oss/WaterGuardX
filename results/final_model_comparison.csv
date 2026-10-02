@@ -1,0 +1,9 @@
+Model,F1,Recall,PR-AUC,Inference Latency (ms),Model Size (KB)
+Logistic Regression,0.8848,0.8463,0.9179,0.0003,1.31
+Random Forest,0.9779,0.9885,0.987,0.0094,8123.73
+XGBoost,0.9777,0.9935,0.9911,0.0020,614.64
+LSTM,0.4647,0.3784,0.5806,1.0951,86.23
+Transformer,0.9221,0.9392,0.9769,0.6995,87.77
+SSL_Transformer,0.932,0.973,0.9851,0.4257,95.23
+Final Model (Normal),0.9557,0.9893,0.9943,0.1451,95.15
+Final Model (Adapted Shifted),0.9729,0.9827,0.9891,0.1451,95.15

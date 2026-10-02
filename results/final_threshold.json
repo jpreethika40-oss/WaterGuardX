@@ -1,0 +1,20 @@
+{
+  "nominal_strategy": "Validation F1-score maximization on unshifted validation split",
+  "nominal_threshold": 0.01,
+  "nominal_validation_f1": 0.7067,
+  "adapted_strategy": "Validation F1-score maximization on shifted adaptation validation split",
+  "adapted_threshold": 0.01,
+  "adapted_validation_f1": 0.9832,
+  "acceptance_criteria": {
+    "orig_f1_shift_val": 0.6232,
+    "cand_f1_shift_val": 0.9832,
+    "delta_shift_val": 0.36,
+    "rule1_pass": true,
+    "orig_f1_orig_val": 0.7067,
+    "cand_f1_orig_val": 0.3803,
+    "delta_orig_val": -0.3264,
+    "max_orig_degradation_allowed": 0.05,
+    "rule2_pass": false,
+    "accepted": false
+  }
+}

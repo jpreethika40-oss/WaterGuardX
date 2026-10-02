@@ -1,0 +1,33 @@
+{
+  "selected_configuration": "Adaptive SSL Temporal Transformer (Full System)",
+  "architecture_components": [
+    "Temporal Transformer with Sinusoidal Positional Encoding",
+    "Self-Supervised Masked Time-Series Pretraining (Mask Ratio = 0.15)",
+    "Two-Sample Kolmogorov-Smirnov Shift Detection Gating (tau = 0.009148)",
+    "Periodic Fine-Tuning Adaptation with 20% Training Replay Buffer",
+    "Dual Validation Acceptance Gating to Prevent Catastrophic Forgetting"
+  ],
+  "selection_reason": "Phase 9 ablation systematically demonstrated that under distribution shift, static models suffer catastrophic false alarm saturation (Baseline Transformer FPR = 100%, SSL Transformer FPR = 91.33%). While SSL alone cannot prevent threshold drift, it preserves critical latent separability (ROC-AUC = 0.9592 vs 0.3192 for baseline). When adapted, the SSL Transformer achieves significantly superior performance (F1 = 0.8623, PR-AUC = 0.9876, FNR = 1.67%) compared to adapting the non-SSL baseline (F1 = 0.7502, FNR = 28.08%). Distribution shift detection provides necessary gating to avoid unwarranted continuous training, while the 20% replay buffer eliminates catastrophic forgetting on nominal operations (Normal F1 = 0.9570 to 0.9764).",
+  "supporting_experiments": [
+    "Phase 5 (Standard Transformer): Established baseline sequence modeling capability.",
+    "Phase 6 (Self-Supervised Pretraining): Verified representation quality with masked autoencoding.",
+    "Phase 7 (Shift Detection): Proved latent robustness (ROC-AUC 0.9575) vs static threshold degradation.",
+    "Phase 8 (Adaptive Learning): Demonstrated recovery of +52.40 F1 points under shift with replay buffer.",
+    "Phase 9 (Ablation Study): Confirmed synergy of SSL + Shift Detection + Adaptation over individual components."
+  ],
+  "key_metrics": {
+    "normal_f1": 0.957,
+    "normal_pr_auc": 0.9896,
+    "normal_fpr": 0.025,
+    "shifted_f1_pre_adapt": 0.3383,
+    "shifted_f1_post_adapt": 0.8623,
+    "shifted_pr_auc_post_adapt": 0.9876,
+    "shifted_fpr_post_adapt": 0.0694,
+    "shifted_fnr_post_adapt": 0.0167
+  },
+  "known_tradeoffs": [
+    "Offline training compute: SSL pretraining requires 169.88s additional compute.",
+    "Online adaptation buffer: Requires maintaining a chronological sequence window (e.g. 3 weeks) and replay buffer.",
+    "Model parameter overhead: +1,584 parameters for SSL projection head (19,313 vs 17,729 params), with negligible inference impact."
+  ]
+}

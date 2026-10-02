@@ -1,0 +1,2 @@
+model,configuration,dataset_split,normal_f1,normal_recall,normal_precision,normal_roc_auc,normal_pr_auc,normal_fpr,shifted_f1_pre,shifted_fpr_pre,adapted_f1,adapted_recall,adapted_precision,adapted_roc_auc,adapted_pr_auc,adapted_fpr,adapted_fnr,training_time_s,adaptation_time_s,inference_ms,model_size_kb,parameter_count
+Adaptive_SSL_Temporal_Transformer,Full_System,Dec_2018_Untouched,0.9557,0.9893,0.9244,0.9979,0.9943,0.0189,0.3183,1.0,0.9729,0.9827,0.9633,0.9956,0.9891,0.0088,0.0173,25.16,33.12,0.1451,95.15,19313

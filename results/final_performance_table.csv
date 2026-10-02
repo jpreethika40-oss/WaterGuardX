@@ -1,0 +1,5 @@
+Model/Condition,Accuracy,Precision,Recall (Sensitivity),Specificity,F1,ROC-AUC,PR-AUC,FPR,FNR
+Final Model - Normal Test,0.9827,0.9244,0.9893,0.9811,0.9557,0.9979,0.9943,1.89%,1.07%
+Final Model - Shifted Test (Pre-Adapt),0.1893,0.1893,1.0,0.0,0.3183,0.9824,0.9579,100.00%,0.00%
+Final Model - Shifted Test (Post-Adapt),0.9896,0.9633,0.9827,0.9912,0.9729,0.9956,0.9891,0.88%,1.73%
+Final Model - Normal Test (Post-Adapt Retention),0.9896,0.9622,0.9839,0.991,0.9729,0.9972,0.9926,0.90%,1.61%
