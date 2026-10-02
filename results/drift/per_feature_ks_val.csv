@@ -1,0 +1,17 @@
+feature,ks_statistic,p_value,shift_detected
+n1,0.058744,0.0,True
+n54,0.055027,0.0,True
+PUMP_1,0.050917,0.0,True
+p235,0.050272,0.0,True
+p227,0.049946,0.0,True
+n549,0.04907,0.0,True
+n458,0.04893,0.0,True
+n105,0.047838,0.0,True
+n332,0.04456,0.0,True
+T1,0.031153,0.0,True
+n215,0.026383,1e-08,True
+cos_dow,0.025771,2e-08,True
+n163,0.023888,2.2e-07,True
+sin_dow,0.015247,0.00289124,True
+sin_hour,0.0,1.0,False
+cos_hour,0.0,1.0,False

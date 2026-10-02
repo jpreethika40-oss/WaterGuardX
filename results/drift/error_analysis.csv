@@ -1,0 +1,16 @@
+condition,error_type,window_idx,prob
+normal,FP,126,0.0383
+normal,FP,137,0.0822
+normal,FP,138,0.0917
+normal,FP,197,0.5241
+normal,FP,198,0.0803
+normal,FN,141,0.0042
+normal,FN,142,0.0027
+normal,FN,143,0.0028
+normal,FN,144,0.0035
+normal,FN,145,0.0055
+shifted,FP,0,0.0391
+shifted,FP,1,0.0403
+shifted,FP,2,0.2101
+shifted,FP,3,0.4783
+shifted,FP,4,0.5347

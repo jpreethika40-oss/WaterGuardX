@@ -1,0 +1,7 @@
+model,condition,f1,precision,recall,roc_auc,pr_auc,fpr,fnr
+SSL_Transformer,normal,0.932,0.8944,0.973,0.9919,0.9851,0.0292,0.027
+SSL_Transformer,shifted,0.3553,0.2161,1.0,0.9575,0.8961,0.9219,0.0
+Standard_Transformer,normal,0.9238,0.9058,0.9426,0.9934,0.9769,0.0249,0.0574
+Standard_Transformer,shifted,0.2972,0.1796,0.8615,0.207,0.155,1.0,0.1385
+LSTM,normal,0.4647,0.6022,0.3784,0.8019,0.5806,0.0635,0.6216
+LSTM,shifted,0.0,0.0,0.0,0.6407,0.3846,0.0,1.0

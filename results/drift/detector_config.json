@@ -1,0 +1,42 @@
+{
+  "method": "KolmogorovSmirnov",
+  "aggregation": "mean_across_features",
+  "n_bootstrap": 500,
+  "bootstrap_frac": 0.3,
+  "percentile": 99.0,
+  "threshold": 0.009148,
+  "feature_cols": [
+    "n1",
+    "n54",
+    "n105",
+    "n163",
+    "n215",
+    "n332",
+    "n458",
+    "n549",
+    "p227",
+    "p235",
+    "PUMP_1",
+    "T1",
+    "sin_hour",
+    "cos_hour",
+    "sin_dow",
+    "cos_dow"
+  ],
+  "sensor_cols": [
+    "n1",
+    "n54",
+    "n105",
+    "n163",
+    "n215",
+    "n332",
+    "n458",
+    "n549",
+    "p227",
+    "p235",
+    "PUMP_1",
+    "T1"
+  ],
+  "reference_rows": 69984,
+  "seed": 42
+}

@@ -1,0 +1,4 @@
+Condition,Accuracy,Precision,Recall,F1,ROC-AUC,PR-AUC,FPR,FNR
+Condition A (Normal Test),0.9713,0.8944,0.973,0.932,0.9919,0.9851,0.0292,0.027
+Condition B (Shifted Test k=1.0),0.2649,0.2161,1.0,0.3553,0.9575,0.8961,0.9219,0.0
+Degradation (Delta B - A),-0.7064,-0.6784,0.027,-0.5767,-0.0344,-0.089,0.8927,-0.027
