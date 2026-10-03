@@ -1,7 +1,7 @@
 """
 WaterGuardX — Metrics, Benchmark & Interpretability View.
 Renders official research evaluation results from Phase 10 and Phase 11.
-Strictly separates research benchmarks from live user-uploaded predictions.
+Dedicated components for Tab 6 (Benchmarks) and Tab 7 (Interpretability).
 """
 from pathlib import Path
 import pandas as pd
@@ -14,36 +14,35 @@ from utils.app_utils import (
 )
 
 
-def render_metrics_view():
+def render_benchmarks_tab():
     """
-    Renders official Phase 10 evaluation benchmarks and Phase 11 interpretability analysis.
+    Renders dedicated Tab 6: Official Phase 10 Research Evaluation & Cross-Model Benchmarks.
     """
     data10 = load_phase10_results()
-    data11 = load_phase11_results()
-
     res10 = data10.get("results", {})
     metrics_norm = res10.get("metrics_normal_test", {})
     metrics_shift_pre = res10.get("metrics_shifted_test_pre_adapt", {})
     metrics_shift_post = res10.get("metrics_shifted_test_post_adapt", {})
     metrics_retention = res10.get("metrics_normal_retention_post_adapt", {})
 
-    st.markdown("### 🏆 4. Official Research Evaluation & Architecture Benchmark")
-    st.caption("Official evaluation on untouched held-out December 1–31, 2018 test data ($N = 8,881$ evaluation windows).")
+    st.markdown("### 🏆 6. Official Research Evaluation & Architecture Benchmark")
+    st.caption("Comprehensive evaluation conducted on untouched held-out December 1–31, 2018 test data ($N = 8,881$ evaluation windows).")
 
     # 1. Official Phase 10 KPI Cards
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
-        st.metric("Test F1-Score (Normal)", f"{metrics_norm.get('f1', 0.9557):.4f}")
+        st.metric("Test F1-Score (Nominal)", f"{metrics_norm.get('f1', 0.9557):.4f}", "95.57%")
     with col2:
-        st.metric("Test Recall (Sensitivity)", f"{metrics_norm.get('recall', 0.9893):.4f}")
+        st.metric("Test Recall (Sensitivity)", f"{metrics_norm.get('recall', 0.9893):.4f}", "98.93%")
     with col3:
-        st.metric("Test PR-AUC", f"{metrics_norm.get('pr_auc', 0.9943):.4f}")
+        st.metric("Test PR-AUC", f"{metrics_norm.get('pr_auc', 0.9943):.4f}", "0.9943")
     with col4:
-        st.metric("Inference Latency", f"{res10.get('inference_latency_ms', 0.1451):.4f} ms", "per sequence")
+        st.metric("Inference Latency", f"{res10.get('inference_latency_ms', 0.1451):.4f} ms", "per window")
     with col5:
         st.metric("Active Model Size", f"{res10.get('model_size_kb', 95.15):.2f} KB", "19,313 params")
 
     # 2. Performance Comparison Table Under Different Operational Regimes
+    st.markdown("---")
     st.markdown("#### Performance Under Normal vs. Distribution-Shifted Regimes")
     perf_data = [
         {
@@ -98,26 +97,36 @@ def render_metrics_view():
     st.table(pd.DataFrame(perf_data))
 
     # 3. Cross-Model Architectural Benchmark
-    st.markdown("#### Comprehensive Cross-Model Benchmark (Phases 3–10)")
+    st.markdown("---")
+    st.markdown("#### Comprehensive Cross-Model Project Benchmark (Phases 3–10)")
     benchmark_df = pd.DataFrame([
-        {"Model": "Logistic Regression (Phase 3)", "F1-Score": "0.8848", "Recall": "0.8463", "PR-AUC": "0.9179", "Latency (ms)": "0.0003", "Size": "1.31 KB"},
-        {"Model": "Random Forest (Phase 3)", "F1-Score": "0.9779", "Recall": "0.9885", "PR-AUC": "0.9870", "Latency (ms)": "0.0094", "Size": "8,123.7 KB"},
-        {"Model": "XGBoost (Phase 3)", "F1-Score": "0.9777", "Recall": "0.9935", "PR-AUC": "0.9911", "Latency (ms)": "0.0020", "Size": "614.6 KB"},
-        {"Model": "LSTM Baseline (Phase 4)", "F1-Score": "0.4647", "Recall": "0.3784", "PR-AUC": "0.5806", "Latency (ms)": "1.0951", "Size": "86.23 KB"},
-        {"Model": "Standard Transformer (Phase 5)", "F1-Score": "0.9221", "Recall": "0.9392", "PR-AUC": "0.9769", "Latency (ms)": "0.6995", "Size": "87.77 KB"},
-        {"Model": "SSL Pretrained Transformer (Phase 6)", "F1-Score": "0.9320", "Recall": "0.9730", "PR-AUC": "0.9851", "Latency (ms)": "0.4257", "Size": "95.23 KB"},
-        {"Model": "Final Model — WaterGuardX (Nominal)", "F1-Score": "0.9557", "Recall": "0.9893", "PR-AUC": "0.9943", "Latency (ms)": "0.1451", "Size": "95.15 KB"},
-        {"Model": "Final Model — WaterGuardX (Adapted)", "F1-Score": "0.9729", "Recall": "0.9827", "PR-AUC": "0.9891", "Latency (ms)": "0.1451", "Size": "95.15 KB"},
+        {"Architecture": "Logistic Regression (Phase 3)", "F1-Score": "0.8848", "Recall": "0.8463", "PR-AUC": "0.9179", "Latency": "0.0003 ms", "Size": "1.31 KB"},
+        {"Architecture": "Random Forest (Phase 3)", "F1-Score": "0.9779", "Recall": "0.9885", "PR-AUC": "0.9870", "Latency": "0.0094 ms", "Size": "8,123.7 KB"},
+        {"Architecture": "XGBoost (Phase 3)", "F1-Score": "0.9777", "Recall": "0.9935", "PR-AUC": "0.9911", "Latency": "0.0020 ms", "Size": "614.6 KB"},
+        {"Architecture": "LSTM Baseline (Phase 4)", "F1-Score": "0.4647", "Recall": "0.3784", "PR-AUC": "0.5806", "Latency": "1.0951 ms", "Size": "86.23 KB"},
+        {"Architecture": "Standard Transformer (Phase 5)", "F1-Score": "0.9221", "Recall": "0.9392", "PR-AUC": "0.9769", "Latency": "0.6995 ms", "Size": "87.77 KB"},
+        {"Architecture": "SSL Pretrained Transformer (Phase 6)", "F1-Score": "0.9320", "Recall": "0.9730", "PR-AUC": "0.9851", "Latency": "0.4257 ms", "Size": "95.23 KB"},
+        {"Architecture": "WaterGuardX Nominal (Phase 10)", "F1-Score": "0.9557", "Recall": "0.9893", "PR-AUC": "0.9943", "Latency": "0.1451 ms", "Size": "95.15 KB"},
+        {"Architecture": "WaterGuardX Adapted (Phase 10)", "F1-Score": "0.9729", "Recall": "0.9827", "PR-AUC": "0.9891", "Latency": "0.1451 ms", "Size": "95.15 KB"},
     ])
     st.dataframe(benchmark_df, use_container_width=True, hide_index=True)
 
-    # 4. Phase 11 Interpretability & Error Analysis Section
-    st.markdown("---")
-    st.markdown("### 🔬 5. Phase 11 Diagnostic Error Analysis & Interpretability")
+
+def render_interpretability_tab():
+    """
+    Renders dedicated Tab 7: Phase 11 Diagnostic Error Analysis & Interpretability.
+    """
+    data11 = load_phase11_results()
+
+    st.markdown("### 🔬 7. Phase 11 Diagnostic Error Analysis & Interpretability")
+    st.markdown(
+        "Empirical diagnostic findings conducted on the untouched December 1–31, 2018 test streams. "
+        "Evaluates physical false alarm mechanisms, incipient leak attenuation, and attention sensitivity."
+    )
 
     tab_err, tab_interp, tab_figs = st.tabs([
-        "⚠️ Error Taxonomy & Mechanisms",
-        "🧭 Sensor Sensitivity & Calibration",
+        "⚠️ Error Taxonomy & Physical Root Causes",
+        "🧭 Permutation Sensitivity & Calibration",
         "🖼️ Publication Diagnostic Figures"
     ])
 
@@ -126,13 +135,13 @@ def render_metrics_view():
         if 'summary' in data11:
             st.table(data11['summary'])
 
-        col_fp, col_fn = st.columns(2, gap="medium")
+        col_fp, col_fn = st.columns(2, gap="large")
         with col_fp:
-            st.markdown("**False Positive Root Cause (0.75% – 1.53% FPR):**")
+            st.markdown("##### 🚨 False Positive Root Cause (0.75% – 1.53% FPR)")
             st.markdown(
                 r"""
-                - **Observed Pattern:** High-confidence false alarms ($\hat{p} > 0.95$) are concentrated during midnight pump staging and valve actuation.
-                - **Physical Mechanism:** Rapid step changes ($> 4.0\sigma$ to $8.29\sigma$) on pressure junctions `n215`, `p235`, `n1`, and `n163` induce sharp, high-frequency transients that temporally mimic physical pipe burst profiles.
+                - **Empirical Signature:** High-confidence false alarms ($\hat{p} > 0.95$) concentrate during midnight pump staging and valve actuation.
+                - **Hydraulic Mechanism:** Rapid step changes ($> 4.0\sigma$ to $8.29\sigma$) on pressure junctions `n215`, `p235`, `n1`, and `n163` induce sharp hydraulic transients that temporally mimic physical pipe burst profiles.
                 """
             )
             if 'false_positives' in data11:
@@ -140,11 +149,11 @@ def render_metrics_view():
                 st.dataframe(data11['false_positives'][['Error ID', 'Timestamp', 'Probability', 'Observed Pattern']].head(5), use_container_width=True)
 
         with col_fn:
-            st.markdown("**False Negative Root Cause (0.32% – 1.07% FNR):**")
+            st.markdown("##### ⚠️ False Negative Root Cause (0.32% – 1.07% FNR)")
             st.markdown(
                 r"""
-                - **Observed Pattern:** Missed anomalies ($\hat{p} < 0.001$) correspond to low-magnitude incipient pipe leakages.
-                - **Physical Mechanism:** Slow developing leaks with gradual localized pressure drops ($< 0.6\sigma$) without sharp step changes remain bounded within normal diurnal demand cycles, escaping temporal attention triggers.
+                - **Empirical Signature:** Missed anomalies ($\hat{p} < 0.001$) correspond strictly to low-magnitude incipient pipe leakages.
+                - **Hydraulic Mechanism:** Slow developing leaks with gradual localized pressure drops ($< 0.6\sigma$) without sharp step changes remain bounded within normal diurnal demand cycles, escaping temporal attention triggers.
                 """
             )
             if 'false_negatives' in data11:
@@ -155,12 +164,12 @@ def render_metrics_view():
         st.markdown("#### Sensor Permutation Importance & Model Sensitivity")
         st.markdown(
             "Empirical sensitivity measured as mean absolute change in predicted anomaly probability "
-            "($|\\Delta \\hat{p}|$) and Average Precision drop when each sensor channel is permuted on the test set. "
-            "*(Reflects statistical model sensitivity; does not claim physical causality)*."
+            "($|\\Delta \\hat{p}|$) and Average Precision drop when each sensor channel is permuted on the test set."
         )
         if 'interpretability' in data11:
-            st.dataframe(data11['interpretability'].head(10), use_container_width=True, hide_index=True)
+            st.dataframe(data11['interpretability'].head(12), use_container_width=True, hide_index=True)
 
+        st.markdown("---")
         st.markdown("#### Probability Calibration (Expected Calibration Error)")
         c1, c2 = st.columns(2)
         with c1:
@@ -171,7 +180,7 @@ def render_metrics_view():
             st.caption("Reliable probabilities with minor under-confidence in intermediate 0.40–0.70 score bins.")
 
     with tab_figs:
-        st.markdown("#### High-Resolution Phase 11 Visualizations")
+        st.markdown("#### High-Resolution Publication Diagnostic Figures")
         err_fig_dir = FIGURES_DIR / 'error_analysis'
 
         fig_options = {
@@ -186,9 +195,16 @@ def render_metrics_view():
             "Calibration & Reliability Diagram": err_fig_dir / 'calibration_reliability_diagram.png',
         }
 
-        chosen_fig = st.selectbox("Select Diagnostic Figure to View:", list(fig_options.keys()))
+        chosen_fig = st.selectbox("Select Diagnostic Figure to Inspect:", list(fig_options.keys()))
         fig_path = fig_options[chosen_fig]
         if fig_path.exists():
             st.image(str(fig_path), use_container_width=True, caption=f"Figure: {chosen_fig}")
         else:
             st.warning(f"Figure file not found at {fig_path}")
+
+
+def render_metrics_view():
+    """Backwards compatibility wrapper."""
+    render_benchmarks_tab()
+    st.markdown("---")
+    render_interpretability_tab()

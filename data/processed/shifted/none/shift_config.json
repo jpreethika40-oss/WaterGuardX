@@ -1,0 +1,21 @@
+{
+  "level": "none",
+  "shift_multiplier": 0.0,
+  "affected_cols": [
+    "n1",
+    "n54",
+    "n105",
+    "n163",
+    "n215",
+    "n332",
+    "n458",
+    "n549",
+    "p227",
+    "p235",
+    "PUMP_1",
+    "T1"
+  ],
+  "transformation": "additive_mean_shift",
+  "magnitude_description": "0.0 \u00d7 per-sensor training std",
+  "synthetic": false
+}

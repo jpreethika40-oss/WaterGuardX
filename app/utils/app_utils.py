@@ -269,6 +269,50 @@ def run_model_inference(model: nn.Module, sequences: np.ndarray, threshold: floa
     return probs_all, preds_all
 
 
+def run_single_sequence_inference(model: nn.Module, sequence: np.ndarray) -> float:
+    """
+    Run PyTorch inference on a single sequence window of shape (T, D).
+    Returns: scalar anomaly probability in [0, 1].
+    """
+    model.eval()
+    with torch.no_grad():
+        x = torch.from_numpy(sequence.astype(np.float32)).unsqueeze(0).to(DEVICE)
+        if hasattr(model, 'forward_classify'):
+            logits = model.forward_classify(x)
+        else:
+            logits = model(x)
+        prob = float(torch.sigmoid(logits).cpu().numpy().flatten()[0])
+    return prob
+
+
+def apply_dynamic_threshold(
+    probs: np.ndarray,
+    timestamps: list,
+    threshold: float,
+    y_ground_truth: Optional[np.ndarray] = None
+) -> pd.DataFrame:
+    """
+    Dynamically recalculate binary predictions, risk levels, and accuracy tags
+    from pre-computed probabilities in O(N) without neural net re-inference.
+    """
+    preds = (probs >= threshold).astype(int)
+    risk_levels = np.where(
+        probs >= 0.50,
+        "Critical (≥0.50)",
+        np.where(probs >= threshold, f"Warning (≥{threshold:.4f})", "Nominal")
+    )
+    df = pd.DataFrame({
+        "Timestamp": timestamps,
+        "Anomaly Probability": np.round(probs, 5),
+        "Predicted Class": np.where(preds == 1, "Anomaly", "Normal"),
+        "Risk Level": risk_levels
+    })
+    if y_ground_truth is not None and len(y_ground_truth) == len(preds):
+        df["Ground Truth"] = np.where(y_ground_truth == 1, "Anomaly", "Normal")
+        df["Correct"] = df["Predicted Class"] == df["Ground Truth"]
+    return df
+
+
 def compute_drift_score(incoming_df: pd.DataFrame) -> dict:
     """
     Compute two-sample Kolmogorov-Smirnov test against reference training distribution.

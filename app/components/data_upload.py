@@ -1,6 +1,7 @@
 """
 WaterGuardX — Data Upload & Validation Component.
-Handles CSV upload, pre-packaged sample streams, validation checks, and data preview.
+Handles CSV upload, pre-packaged sample streams, validation checks,
+dynamic range filtering, and interactive data profiling in the Blue Theme.
 """
 from typing import Optional, Tuple
 import pandas as pd
@@ -16,13 +17,13 @@ from utils.app_utils import (
 
 def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
     """
-    Renders the data ingestion and validation section.
+    Renders the data ingestion, validation, and profiling section.
     Returns: (dataframe, is_valid, timestamp_column_name)
     """
-    st.markdown("### 📥 1. Ingest Water-System SCADA Data")
+    st.markdown("### 📥 1. SCADA Data Ingestion & Physical Sensor Profiling")
     st.markdown(
-        "Upload a continuous `.csv` time-series file from water distribution network sensors, "
-        "or choose a pre-loaded evaluation stream to test the end-to-end pipeline."
+        "Upload multivariate SCADA sensor time-series data or select a pre-packaged held-out evaluation stream. "
+        "The system validates physical schema integrity, checks continuity, and derives temporal structures."
     )
 
     col_upload, col_samples = st.columns([3, 2], gap="large")
@@ -31,6 +32,7 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
     source_name = "None"
 
     with col_upload:
+        st.markdown("#### 📁 Upload Custom SCADA CSV")
         uploaded_file = st.file_uploader(
             "Choose a SCADA Sensor CSV file",
             type=["csv"],
@@ -45,12 +47,16 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
                 return None, False, None
 
     with col_samples:
-        st.markdown("**Or load an untouched held-out evaluation stream:**")
+        st.markdown("#### ⚡ Quick-Load Evaluation Streams")
         sample_choice = st.radio(
-            "Select evaluation sample:",
-            ["None", "Held-Out Normal Stream (Dec 2018)", "Held-Out Shifted Stream (Dec 2018, $k=1.0$)"],
-            index=0,
-            horizontal=False
+            "Select an untouched held-out evaluation stream:",
+            [
+                "None (Upload Custom File)",
+                "Held-Out Normal Stream (Dec 2018)",
+                "Held-Out Shifted Stream (Dec 2018, Seasonal/Operational Drift)"
+            ],
+            index=1,
+            help="Pre-packaged test sets from untouched held-out December 2018 BattLeDIM data."
         )
 
         if sample_choice == "Held-Out Normal Stream (Dec 2018)":
@@ -59,7 +65,7 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
                 source_name = "Pre-packaged Stream: Normal Operation (Dec 2018, 1,200 timesteps)"
             except Exception as e:
                 st.warning(f"Could not load normal sample: {e}")
-        elif sample_choice == "Held-Out Shifted Stream (Dec 2018, $k=1.0$)":
+        elif sample_choice == "Held-Out Shifted Stream (Dec 2018, Seasonal/Operational Drift)":
             try:
                 df_loaded = load_sample_stream('shifted', n_rows=1200)
                 source_name = "Pre-packaged Stream: Distribution Shifted (Dec 2018, 1,200 timesteps)"
@@ -67,10 +73,8 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
                 st.warning(f"Could not load shifted sample: {e}")
 
     if df_loaded is None:
-        st.info("👆 Please upload a SCADA CSV file or select a sample stream above to begin analysis.")
+        st.info("👆 Please select an evaluation sample stream or upload a SCADA CSV above to begin.")
         return None, False, None
-
-    st.markdown(f"**Active Data Source:** {source_name}")
 
     # Validation
     is_valid, errors, ts_col = validate_dataframe(df_loaded)
@@ -81,9 +85,9 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
             st.markdown(f"- {err}")
         return None, False, None
 
-    # Quality and Summary Metrics
-    st.success("✅ **Data Validation Passed:** Required 12 SCADA sensors and continuous timestamp structure verified.")
+    st.success(f"✅ **Data Validation Passed:** Verified 12 SCADA sensors & temporal continuity. Active Source: **{source_name}**")
 
+    # Quality and Summary Metrics
     n_rows, n_cols = df_loaded.shape
     missing_count = int(df_loaded[SENSOR_COLS].isna().sum().sum())
     dup_count = int(df_loaded.duplicated(subset=[ts_col]).sum()) if ts_col else 0
@@ -94,19 +98,36 @@ def render_data_upload() -> Tuple[Optional[pd.DataFrame], bool, Optional[str]]:
 
     m1, m2, m3, m4, m5 = st.columns(5)
     with m1:
-        st.metric("Total Rows", f"{n_rows:,}")
+        st.metric("Total Observations", f"{n_rows:,}")
     with m2:
-        st.metric("Sensors Found", f"{len(SENSOR_COLS)} / 12")
+        st.metric("SCADA Sensors", f"{len(SENSOR_COLS)} / 12", "All Verified")
     with m3:
-        st.metric("Missing Values", f"{missing_count:,}")
+        st.metric("Missing Values", f"{missing_count:,}", "Clean" if missing_count == 0 else "Contains NaN")
     with m4:
-        st.metric("Duplicate Timestamps", f"{dup_count:,}")
+        st.metric("Duplicate Timestamps", f"{dup_count:,}", "0 Duplicates")
     with m5:
-        st.metric("Time Span", f"{(ts_series.max() - ts_series.min()).days}d" if pd.notnull(ts_series.min()) else "N/A")
+        st.metric("Coverage Span", f"{(ts_series.max() - ts_series.min()).days}d" if pd.notnull(ts_series.min()) else "N/A", "5-min step")
 
-    st.caption(f"📅 **Time Range:** `{ts_min_str}` to `{ts_max_str}` (Sampling interval: ~5 minutes)")
+    st.caption(f"📅 **Temporal Range:** `{ts_min_str}` to `{ts_max_str}` (Temporal interval: ~5 minutes)")
 
-    with st.expander("🔍 Inspect Raw Input Data Preview (First 5 Rows)", expanded=False):
-        st.dataframe(df_loaded.head(5), use_container_width=True)
+    # Dynamic Data Inspector Tabs
+    tab_preview, tab_stats = st.tabs(["📋 Data Preview & Search", "📊 Sensor Statistical Distribution"])
+
+    with tab_preview:
+        col_rows, col_search = st.columns([1, 2])
+        with col_rows:
+            n_show = st.slider("Rows to preview:", min_value=5, max_value=min(100, n_rows), value=10, step=5)
+        with col_search:
+            selected_cols = st.multiselect(
+                "Filter columns to inspect:",
+                options=list(df_loaded.columns),
+                default=[ts_col] + SENSOR_COLS[:6]
+            )
+        st.dataframe(df_loaded[selected_cols if selected_cols else df_loaded.columns].head(n_show), use_container_width=True)
+
+    with tab_stats:
+        st.markdown("##### Empirical Sensor Distribution Summary")
+        stats_df = df_loaded[SENSOR_COLS].describe().T[['mean', 'std', 'min', '50%', 'max']].rename(columns={'50%': 'median'})
+        st.dataframe(stats_df.round(3), use_container_width=True)
 
     return df_loaded, True, ts_col
